@@ -16,7 +16,11 @@ bool CLApp::OnInit() {
 
 int CLApp::OnRun() {
     // initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO
+#ifdef _DEBUG
+		|SDL_INIT_NOPARACHUTE
+#endif
+		) < 0) {
         std::cerr << "unable to init SDL: " << SDL_GetError() << '\n';
         
         return -1;
