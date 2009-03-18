@@ -15,7 +15,11 @@ bool CLApp::OnInit() {
 }
 
 int CLApp::OnRun() {
-    // initialize SDL
+     char envVariable[64];
+     sprintf(envVariable,"SDL_VIDEODRIVER=directx");
+     putenv(envVariable);
+	
+	// initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO
 #ifdef _DEBUG
 		|SDL_INIT_NOPARACHUTE
