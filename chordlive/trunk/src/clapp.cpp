@@ -5,20 +5,23 @@ bool CLApp::OnInit() {
     frame = new CLMain;
     frame->SetClientSize(640, 480);
     frame->Centre();
-    frame->Show();
+    //frame->Show();
     
     // Our CLMain is the Top Window
-    SetTopWindow(frame);
+    //SetTopWindow(frame);
 
     // initialization should always succeed
     return true;
 }
 
 int CLApp::OnRun() {
-     char envVariable[64];
-     sprintf(envVariable,"SDL_VIDEODRIVER=directx");
-     putenv(envVariable);
-	
+     //char envVariable[64];
+     //sprintf(envVariable,"SDL_VIDEODRIVER=directx");
+     //putenv(envVariable);
+
+	 //sprintf(envVariable,"SDL_WINDOWID=%d", frame->GetHWND());
+     //putenv(envVariable);
+
 	// initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO
 #ifdef _DEBUG
@@ -30,6 +33,9 @@ int CLApp::OnRun() {
         return -1;
     }
     
+    frame->Show();
+	SetTopWindow(frame);
+
     // generate an initial idle event to start things
     wxIdleEvent event;
     event.SetEventObject(&frame->getPanel());
