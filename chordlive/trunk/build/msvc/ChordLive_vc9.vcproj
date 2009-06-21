@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(WXWIN)\include&quot;;&quot;$(SDL)\include&quot;;&quot;$(WXWIN)\lib\vc_lib\mswud&quot;"
+				AdditionalIncludeDirectories="&quot;$(WXWIN)\include&quot;;&quot;$(WXWIN)\lib\vc_lib\mswud&quot;;&quot;$(BOOST)&quot;"
 				PreprocessorDefinitions="__WXMSW__;WINVER=0x0400;__WXDEBUG__;DEBUG;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -65,9 +65,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxmsw28ud_core.lib wxbase28ud.lib SDLd.lib comctl32.lib rpcrt4.lib winmm.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="wxmsw28ud_core.lib wxbase28ud.lib comctl32.lib rpcrt4.lib winmm.lib advapi32.lib wsock32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(WXWIN)\lib\vc_lib&quot;;&quot;$(SDL)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(WXWIN)\lib\vc_lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -196,7 +196,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(WXWIN)\include&quot;;&quot;$(SDL)\include&quot;;&quot;$(WXWIN)\lib\vc_lib\mswu&quot;"
+				AdditionalIncludeDirectories="&quot;$(WXWIN)\include&quot;;&quot;$(WXWIN)\lib\vc_lib\mswu&quot;;&quot;$(BOOST)&quot;"
 				PreprocessorDefinitions="__WXMSW__;WINVER=0x0400"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -217,7 +217,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="wxmsw28u_core.lib wxbase28u.lib SDL.lib SDLmain.lib comctl32.lib rpcrt4.lib winmm.lib advapi32.lib wsock32.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(WXWIN)\lib\vc_lib&quot;;&quot;$(SDL)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(WXWIN)\lib\vc_lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -345,6 +345,10 @@
 				RelativePath="..\..\src\clpanel.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\src\clsong.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -361,6 +365,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\clpanel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\clsong.h"
 				>
 			</File>
 		</Filter>

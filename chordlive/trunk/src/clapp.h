@@ -5,7 +5,6 @@
 
 #include <wx/wx.h>
 
-#include <SDL.h>
 #include "clmain.h"
 
 class CLApp : public wxApp {
@@ -13,9 +12,7 @@ class CLApp : public wxApp {
 private:
     CLMain *frame;   
 public:
-    bool OnInit();
-    int OnRun();
-    int OnExit();
+    virtual bool OnInit();
 };
 
 #endif // H__CLAPP__H

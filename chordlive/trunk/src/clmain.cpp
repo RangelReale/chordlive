@@ -1,8 +1,5 @@
 #include "clmain.h"
 
-inline void CLMain::onFileExit(wxCommandEvent &) { Close(); }
-/*inline*/ CLPanel &CLMain::getPanel() { return *panel; }
-
 IMPLEMENT_CLASS(CLMain, wxFrame)
 
 BEGIN_EVENT_TABLE(CLMain, wxFrame)
@@ -12,9 +9,8 @@ END_EVENT_TABLE()
 
 CLMain::CLMain() {
     // Create the CLMain
-    Create(NULL, ID_FRAME, wxT("Frame Title"), wxDefaultPosition,
-           wxDefaultSize, wxCAPTION | wxSYSTEM_MENU | 
-           wxMINIMIZE_BOX | wxCLOSE_BOX);
+    Create(NULL, ID_FRAME, wxT("ChordLive"), wxDefaultPosition,
+           wxDefaultSize, wxDEFAULT_FRAME_STYLE);
 
     // create the main menubar
     wxMenuBar *mb = new wxMenuBar;
@@ -35,12 +31,15 @@ CLMain::CLMain() {
     
     // add the menu bar to the CLMain
     SetMenuBar(mb);
-    
-    // create the CLPanel
-    panel = new CLPanel(this);
+
+	song_ = new CLPanel(this);
 }
 
 void CLMain::onHelpAbout(wxCommandEvent &) {
     wxMessageBox(wxT("wx-sdl tutorial\nCopyright (C) 2005 John Ratliff"),
                  wxT("about wx-sdl tutorial"), wxOK | wxICON_INFORMATION);
+}
+
+void CLMain::onFileExit(wxCommandEvent &) {
+	Close();
 }
