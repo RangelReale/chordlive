@@ -1,5 +1,6 @@
 #include "clsong.h"
 #include <wx/wfstream.h>
+#include <wx/tokenzr.h>
 
 /****
  *
@@ -20,6 +21,36 @@ CLSongLine::CLSongLine(linekind_t linekind, const wxString &line, const wxString
 CLSongLine::~CLSongLine()
 {
 
+}
+
+bool CLSongLine::IsChord(const wxString &chars)
+{
+	if (chars.Left(1)!=wxT("C") &&
+		chars.Left(1)!=wxT("D") &&
+		chars.Left(1)!=wxT("E") &&
+		chars.Left(1)!=wxT("F") &&
+		chars.Left(1)!=wxT("G") &&
+		chars.Left(1)!=wxT("A") &&
+		chars.Left(1)!=wxT("B"))
+		return false;
+
+	return true;
+}
+
+bool CLSongLine::IsChordLine(const wxString &line)
+{
+	bool ret=true;
+	// detect chord line
+	wxStringTokenizer chstr(line, wxT(" "), wxTOKEN_DEFAULT);
+	while ( chstr.HasMoreTokens() ) {
+		wxString chtoken = chstr.GetNextToken();
+		
+		if (!CLSongLine::IsChord(chtoken)) {
+			ret=false;
+			break;
+		}
+	}
+	return ret;
 }
 
 
@@ -61,14 +92,56 @@ void CLSong::Clear()
 	lines_.clear();
 }
 
+void CLSong::Parse(const wxString &text)
+{
+	wxString mtext(text);
+	mtext.Replace(wxT("\t"), wxT("    "));
 
-void CLSong::Draw(wxDC &dc, const wxRect &rect)
+	CLSongLine::linekind_t n_linekind = CLSongLine::LK_NONE;
+	wxString n_lyrics(wxT("")), n_chords(wxT(""));
+
+	lines_.clear();
+
+	wxStringTokenizer str(mtext, wxT("\n"), wxTOKEN_RET_EMPTY);
+	while ( str.HasMoreTokens() )
+	{
+		wxString token = str.GetNextToken();
+
+		n_linekind=CLSongLine::LK_NONE;
+		// white line
+		if (token.IsEmpty())
+		{
+			if (!n_chords.IsEmpty())
+				lines_.push_back(songlistitem_t(new CLSongLine(CLSongLine::LK_LINE, wxT(""), n_chords)));
+
+			n_linekind=CLSongLine::LK_SPACE;
+			n_lyrics=wxT("");
+			n_chords=wxT("");
+
+			lines_.push_back(songlistitem_t(new CLSongLine(n_linekind, n_lyrics, n_chords)));
+		} else {
+			if (CLSongLine::IsChordLine(token)) {
+				n_chords=token.Trim(false);
+			} else {
+				n_linekind=CLSongLine::LK_LINE;
+				n_lyrics=token.Trim(false);
+				lines_.push_back(songlistitem_t(new CLSongLine(n_linekind, n_lyrics, n_chords)));
+
+				n_lyrics=n_chords=wxT("");
+			}
+		}
+	}
+
+}
+
+
+void CLSong::Draw(wxDC &dc, const wxRect &rect, int startpos)
 {
 	wxFont titlefont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 	wxFont linefont(11, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	wxFont chordfont(11, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 
-	int spos=0;
+	int spos=-1*startpos;
 	dc.SetFont(titlefont);
 	dc.DrawText(title_, 10, spos);
 	spos+=dc.GetTextExtent(title_).GetHeight();

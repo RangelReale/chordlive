@@ -1,9 +1,11 @@
 #include "clmain.h"
+#include "climport.h"
 
 IMPLEMENT_CLASS(CLMain, wxFrame)
 
 BEGIN_EVENT_TABLE(CLMain, wxFrame)
     EVT_MENU(IDM_FILE_EXIT, CLMain::onFileExit)
+    EVT_MENU(IDM_FILE_IMPORT, CLMain::onFileImport)
     EVT_MENU(IDM_HELP_ABOUT, CLMain::onHelpAbout)
 END_EVENT_TABLE()
 
@@ -17,6 +19,8 @@ CLMain::CLMain() {
     
     // create the file menu
     wxMenu *fileMenu = new wxMenu;
+	fileMenu->Append(IDM_FILE_IMPORT, wxT("&Import"));
+	fileMenu->AppendSeparator();
     fileMenu->Append(IDM_FILE_EXIT, wxT("E&xit"));
     
     // add the file menu to the menu bar
@@ -33,11 +37,19 @@ CLMain::CLMain() {
     SetMenuBar(mb);
 
 	song_ = new CLPanel(this);
+
+	song_->GetSong().LoadFromFile(wxT("M:\\prog\\personal\\chordlive\\songs\\Beatles - I Want to Hold Your Hand.cls"));
 }
 
 void CLMain::onHelpAbout(wxCommandEvent &) {
     wxMessageBox(wxT("wx-sdl tutorial\nCopyright (C) 2005 John Ratliff"),
                  wxT("about wx-sdl tutorial"), wxOK | wxICON_INFORMATION);
+}
+
+void CLMain::onFileImport(wxCommandEvent &event)
+{
+	CLImport d(this);
+	d.ShowModal();
 }
 
 void CLMain::onFileExit(wxCommandEvent &) {

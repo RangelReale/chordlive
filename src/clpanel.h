@@ -11,12 +11,17 @@ class CLPanel : public wxPanel {
     DECLARE_EVENT_TABLE()
 private:
 	CLSong *song_;
+	int startpos_;
 
     void onPaint(wxPaintEvent &event);
     void onEraseBackground(wxEraseEvent &event);
+	void onKeyDown(wxKeyEvent &event);
 public:
-    CLPanel(wxWindow *parent);
+    CLPanel(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, 
+		const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
     ~CLPanel();
+
+	CLSong &GetSong() { return *song_; }
 };
 
 

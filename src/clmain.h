@@ -8,6 +8,7 @@ class CLMain : public wxFrame {
     DECLARE_CLASS(CLMain)
     DECLARE_EVENT_TABLE()
 private:
+    void onFileImport(wxCommandEvent &event);
     void onFileExit(wxCommandEvent &event);
     void onHelpAbout(wxCommandEvent &event);   
 
@@ -16,6 +17,8 @@ public:
 	enum {
 		ID_FRAME = 10000,
 		ID_PANEL,
+		
+		IDM_FILE_IMPORT,
 		IDM_FILE_EXIT,
 		IDM_HELP_ABOUT
 	};
