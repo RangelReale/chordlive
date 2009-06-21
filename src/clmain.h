@@ -7,12 +7,11 @@
 class CLMain : public wxFrame {
     DECLARE_CLASS(CLMain)
     DECLARE_EVENT_TABLE()
-    
 private:
-    CLPanel *panel;
-
     void onFileExit(wxCommandEvent &event);
     void onHelpAbout(wxCommandEvent &event);   
+
+	CLPanel *song_;
 public:
 	enum {
 		ID_FRAME = 10000,
@@ -22,7 +21,6 @@ public:
 	};
 
     CLMain();
-    CLPanel &getPanel();
 };
 
 #endif // H__CLMAIN__H
