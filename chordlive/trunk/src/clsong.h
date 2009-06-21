@@ -34,6 +34,7 @@ class CLSongLine
 {
 public:
 	enum linekind_t {
+		LK_NONE,
 		LK_LINE,
 		LK_SPACE,
 	};
@@ -41,6 +42,9 @@ public:
 	CLSongLine();
 	CLSongLine(linekind_t linekind, const wxString &line = wxEmptyString, const wxString &chords = wxEmptyString);
 	virtual ~CLSongLine();
+
+	static bool IsChord(const wxString &chars);
+	static bool IsChordLine(const wxString &line);
 
 	linekind_t GetLineKind() { return linekind_; }
 	const wxString &GetLine() { return line_; }
@@ -61,7 +65,13 @@ public:
 	CLSong();
 	virtual ~CLSong();
 
+	const wxString &GetTitle() { return title_; }
+	void SetTitle(const wxString &title) { title_=title; }
+	const wxString &GetArtist() { return artist_; }
+	void SetArtist(const wxString &artist) { artist_=artist; }
+
 	void Clear();
+	void Parse(const wxString &text);
 
 	void LoadFromFile(const wxString &filename);
 	void SaveToFile(const wxString &filename);
@@ -69,7 +79,7 @@ public:
 	void LoadFromStream(wxInputStream &stream);
 	void SaveToStream(wxOutputStream &stream);
 
-	void Draw(wxDC &dc, const wxRect &rect);
+	void Draw(wxDC &dc, const wxRect &rect, int startpos = 0);
 protected:
 	void LoadLines(wxXmlNode *lines);
 	void LoadLine(wxXmlNode *line);

@@ -338,6 +338,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\climport.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\clmain.cpp"
 				>
 			</File>
@@ -357,6 +361,10 @@
 			>
 			<File
 				RelativePath="..\..\src\clapp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\climport.h"
 				>
 			</File>
 			<File
