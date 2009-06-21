@@ -12,6 +12,8 @@ END_EVENT_TABLE()
 
 CLPanel::CLPanel(wxWindow *parent) : wxPanel(parent, CLMain::ID_PANEL) {
 	song_ = new CLSong;
+
+	song_->LoadFromFile(wxT("M:\\prog\\personal\\chordlive\\songs\\Beatles - I Want to Hold Your Hand.cls"));
 }
 
 CLPanel::~CLPanel() 

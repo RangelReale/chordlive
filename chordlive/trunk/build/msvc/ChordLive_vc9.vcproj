@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxmsw28ud_core.lib wxbase28ud.lib comctl32.lib rpcrt4.lib winmm.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="wxexpatd.lib wxbase28ud_xml.lib wxmsw28ud_core.lib wxbase28ud.lib comctl32.lib rpcrt4.lib winmm.lib advapi32.lib wsock32.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(WXWIN)\lib\vc_lib&quot;"
 				GenerateDebugInformation="true"
@@ -215,7 +215,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxmsw28u_core.lib wxbase28u.lib SDL.lib SDLmain.lib comctl32.lib rpcrt4.lib winmm.lib advapi32.lib wsock32.lib"
+				AdditionalDependencies="wxexpat.lib wxbase28u_xml.lib wxmsw28u_core.lib wxbase28u.lib comctl32.lib rpcrt4.lib winmm.lib advapi32.lib wsock32.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(WXWIN)\lib\vc_lib&quot;"
 				GenerateDebugInformation="true"
