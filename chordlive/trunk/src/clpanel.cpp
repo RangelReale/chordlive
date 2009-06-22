@@ -30,7 +30,10 @@ void CLPanel::onPaint(wxPaintEvent &) {
 	dc.SetBrush(*wxWHITE_BRUSH);
 	dc.DrawRectangle(GetClientRect());
 
-	song_->Draw(dc, GetClientRect(), startpos_);
+	CLSongDraw sd(song_);
+	sd.SetStartPos(startpos_);
+
+	sd.Draw(dc, GetClientRect());
 }
 
 void CLPanel::onKeyDown(wxKeyEvent &event)
