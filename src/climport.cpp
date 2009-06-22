@@ -43,6 +43,8 @@ CLImport::CLImport(wxWindow* parent) {
 
 	// TEXT
 	wxTextCtrl *text = new wxTextCtrl(this, ID_TEXT, wxEmptyString, wxDefaultPosition, wxSize(400, 300), wxTE_MULTILINE);
+	wxFont linefont(9, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+	text->SetFont(linefont);
 	textsizer->Add(text, 1, wxALL|wxGROW, 3);
 
 	// PREVIEW

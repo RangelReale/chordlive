@@ -134,43 +134,6 @@ void CLSong::Parse(const wxString &text)
 
 }
 
-
-void CLSong::Draw(wxDC &dc, const wxRect &rect, int startpos)
-{
-	wxFont titlefont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-	wxFont linefont(11, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
-	wxFont chordfont(11, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-
-	int spos=-1*startpos;
-	dc.SetFont(titlefont);
-	dc.DrawText(title_, 10, spos);
-	spos+=dc.GetTextExtent(title_).GetHeight();
-
-	dc.DrawText(artist_, 10, spos);
-	spos+=dc.GetTextExtent(artist_).GetHeight();
-
-	spos+=dc.GetTextExtent(wxT("M")).GetHeight();
-
-	for (songlist_t::const_iterator i=lines_.begin(); i!=lines_.end(); i++)
-	{
-		switch ((*i)->GetLineKind()) {
-			case CLSongLine::LK_LINE:
-				dc.SetFont(chordfont);
-				dc.DrawText((*i)->GetChords(), 10, spos);
-				spos+=dc.GetTextExtent((*i)->GetChords()).GetHeight();
-
-				dc.SetFont(linefont);
-				dc.DrawText((*i)->GetLine(), 10, spos);
-				spos+=dc.GetTextExtent((*i)->GetLine()).GetHeight();
-				break;
-			case CLSongLine::LK_SPACE:
-				dc.SetFont(linefont);
-				spos+=dc.GetTextExtent(wxT("M")).GetHeight();
-				break;
-		}
-	}
-}
-
 void CLSong::LoadFromStream(wxInputStream &stream)
 {
 	wxXmlDocument doc;
@@ -247,4 +210,55 @@ void CLSong::SaveToFile(const wxString &filename)
 {
 	wxFileOutputStream f(filename);
 	SaveToStream(f);
+}
+
+/****
+ *
+ * CLSongDraw
+ *
+ ***/
+CLSongDraw::CLSongDraw(CLSong *song) : song_(song)
+{
+
+}
+
+CLSongDraw::~CLSongDraw()
+{
+
+}
+
+void CLSongDraw::Draw(wxDC &dc, const wxRect &rect)
+{
+	wxFont titlefont(13, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+	wxFont linefont(11, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+	wxFont chordfont(11, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+
+	int spos=-1*startpos_;
+	dc.SetFont(titlefont);
+	dc.DrawText(song_->title_, 10, spos);
+	spos+=dc.GetTextExtent(song_->title_).GetHeight();
+
+	dc.DrawText(song_->artist_, 10, spos);
+	spos+=dc.GetTextExtent(song_->artist_).GetHeight();
+
+	spos+=dc.GetTextExtent(wxT("M")).GetHeight();
+
+	for (CLSong::songlist_t::const_iterator i=song_->lines_.begin(); i!=song_->lines_.end(); i++)
+	{
+		switch ((*i)->GetLineKind()) {
+			case CLSongLine::LK_LINE:
+				dc.SetFont(chordfont);
+				dc.DrawText((*i)->GetChords(), 10, spos);
+				spos+=dc.GetTextExtent((*i)->GetChords()).GetHeight();
+
+				dc.SetFont(linefont);
+				dc.DrawText((*i)->GetLine(), 10, spos);
+				spos+=dc.GetTextExtent((*i)->GetLine()).GetHeight();
+				break;
+			case CLSongLine::LK_SPACE:
+				dc.SetFont(linefont);
+				spos+=dc.GetTextExtent(wxT("M")).GetHeight();
+				break;
+		}
+	}
 }

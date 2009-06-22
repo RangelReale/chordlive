@@ -7,6 +7,10 @@
 #include <boost/shared_ptr.hpp>
 #include <wx/xml/xml.h>
 
+// forward
+class CLSongDraw;
+
+
 /****
  *
  * CLSongException
@@ -78,17 +82,37 @@ public:
 
 	void LoadFromStream(wxInputStream &stream);
 	void SaveToStream(wxOutputStream &stream);
-
-	void Draw(wxDC &dc, const wxRect &rect, int startpos = 0);
 protected:
 	void LoadLines(wxXmlNode *lines);
 	void LoadLine(wxXmlNode *line);
 private:
+	friend class CLSongDraw;
+	
 	typedef boost::shared_ptr<CLSongLine> songlistitem_t;
 	typedef std::deque< songlistitem_t > songlist_t;
 
 	wxString title_, artist_;
 	songlist_t lines_;
+};
+
+/****
+ *
+ * CLSongDraw
+ *
+ ***/
+class CLSongDraw
+{
+public:
+	CLSongDraw(CLSong *song);
+	virtual ~CLSongDraw();
+
+	int GetStartPos() { return startpos_; }
+	void SetStartPos(int startpos) { startpos_=startpos; }
+
+	void Draw(wxDC &dc, const wxRect &rect);
+private:
+	CLSong *song_;
+	int startpos_;
 };
 
 #endif // H__CLSONG__H
